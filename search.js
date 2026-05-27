@@ -3,7 +3,7 @@ window.onload = () => {
   let title = param.get("query");
   console.log(title);
 
-  if (title !== "") {
+  if (title && title.trim() !== "") {
     searchMovie(title);
   } else {
     console.log("Movie not found");
@@ -29,39 +29,59 @@ const searchMovie = (title) => {
       if (xhr.status == 200) {
         const movies = JSON.parse(xhr.responseText);
         console.log(movies);
-        if (movies.results.length < 0) {
-          movies.results.forEach((movies) => {
-            console.log(movies);
-            console.log(movies.title);
-            console.log(movies.vote_average);
-            console.log(movies.poster_path);
-            let divTag = document.createElement("div");
-            divTag.className = "col-xl-3";
-            let imgTag = document.createElement("img");
-            imgTag.className = "img-fluid";
-            let h4Tag = document.createElement("h4");
-            let pTag = document.createElement("p");
-            imgTag.src = `https://image.tmdb.org/t/p/w500${movies.poster_path}`;
-            h4Tag.innerText = movies.title;
-            pTag.innerText = `Rating: ${movies.vote_average}`;
-            divTag.append(imgTag);
-            divTag.append(h4Tag);
-            divTag.append(pTag);
+        if (movies.results.length > 0) {
+  movies.results.forEach((movies) => {
+    console.log(movies);
+    console.log(movies.title);
+    console.log(movies.vote_average);
+    console.log(movies.poster_path);
 
-            document.querySelector(".row").append(divTag);
-          });
-        } else {
-          console.log("Movie not found");
-          let divTag = document.createElement("div");
-          divTag.className = "col-xl-3";
-          let h3Tag = document.createElement("h3");
-          h3Tag.innerText = "Movie not found.....!";
-          divTag.append(h3Tag);
-          document.querySelector(".row").append(divTag);
-        }
+    let divTag = document.createElement("div");
+    divTag.className = "col-xl-3";
+
+    let imgTag = document.createElement("img");
+    imgTag.className = "img-fluid";
+
+    let h4Tag = document.createElement("h4");
+    let pTag = document.createElement("p");
+
+    imgTag.src = `https://image.tmdb.org/t/p/w500${movies.poster_path}`;
+    h4Tag.innerText = movies.title;
+    pTag.innerText = `Rating: ${movies.vote_average}`;
+
+    divTag.append(imgTag);
+    divTag.append(h4Tag);
+    divTag.append(pTag);
+
+    document.querySelector(".row").append(divTag);
+  });
+} else {
+  console.log("Movie not found");
+
+  let divTag = document.createElement("div");
+  divTag.className = "col-xl-3";
+
+  let h3Tag = document.createElement("h3");
+  h3Tag.innerText = "Movie not found.....!";
+
+  divTag.append(h3Tag);
+
+  document.querySelector(".row").append(divTag);
+}
       } else {
         console.log("Error: " + xhr.status);
       }
     }
   };
+};
+
+
+const handleSearch = (event) => {
+  event.preventDefault();
+
+  let query = document.querySelector(".searchBox").value;
+
+  if(query && query.trim() !== ""){
+    window.location.href = `search.html?query=${query}`;
+  }
 };

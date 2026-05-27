@@ -17,6 +17,7 @@
     ></script>
     <link rel="stylesheet" href="./style.css">
     <script src="./upcoming.js"></script>
+    <script src="./search.js"></script>
   </head>
   <body>
     <!-- navbar started -->
@@ -49,14 +50,14 @@
             </li>
             
           </ul>
-          <form class="d-flex" role="search">
+          <form class="d-flex">
             <input
-              class="form-control me-2"
-              type="search"
+              class="form-control me-2 searchBox"
+              type="text"
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success" type="submit">
+            <button class="btn btn-primary" onclick="handleSearch(event)">
               Search
             </button>
           </form>

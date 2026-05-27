@@ -1,0 +1,15 @@
+.navbar{
+    background-color: rgb(98, 98, 98);
+}
+
+body{
+    background-color: rgb(16, 13, 13) !important ;
+}
+a{
+    color: white !important;
+    
+}
+.col-xl-3{
+    color: floralwhite !important;
+    text-align: center;
+}
